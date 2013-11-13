@@ -3,7 +3,7 @@
 Make reading the news more fun.
 http://xkcd.com/1288/
 '''
-
+from __future__ import unicode_literals
 import re
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -23,8 +23,8 @@ d = {
     "google glass": "Virtual Boy",
     "Google glass": "Virtual Boy",
     "Google Glass": "Virtual Boy",
-    "Smartphone": u"Pokédex",
-    "smartphone": u"Pokédex",
+    "Smartphone": "Pokédex",
+    "smartphone": "Pokédex",
     "electric": "atomic",
     "Electric": "Atomic",
     "senator": "elf-lord",
@@ -46,5 +46,8 @@ d = {
 @stringfilter
 def substitute(value):
     pattern = re.compile('|'.join(d.keys()))
-    result = pattern.sub(lambda x: d[x.group()], value)
-    return result.encode('utf-8')
+    try:
+        result = pattern.sub(lambda x: d[x.group()], value)
+    except:
+        result = value
+    return result
