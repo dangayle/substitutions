@@ -29,3 +29,15 @@ In your template, load the template tags and add `substitute` as a filter:
 <p>{{ post.content|substitute }}</p>
 {% endblock %}
 ```
+
+TODO
+-----
+
+- [x] Basic tests
+- [] Word boundaries!
+- [] Make `pip` installable
+
+
+License
+-------
+MIT
