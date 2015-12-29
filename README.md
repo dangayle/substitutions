@@ -40,4 +40,5 @@ TODO
 
 License
 -------
-MIT
+
+© 2015 Dan Gayle, MIT License

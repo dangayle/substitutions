@@ -1,15 +1,15 @@
 # encoding: utf-8
-'''
+"""
 Make reading the news more fun.
 http://xkcd.com/1288/
-'''
+"""
 from __future__ import unicode_literals
 import re
 from django import template
 from django.template.defaultfilters import stringfilter
 
 register = template.Library()
-d = {
+substitutes = {
     "witnesses": "these dudes I know",
     "Witnesses": "These dudes I know",
     "allegedly": "kinda probably",
@@ -45,9 +45,13 @@ d = {
 @register.filter(is_safe=True)
 @stringfilter
 def substitute(value):
-    pattern = re.compile('|'.join(d.keys()))
+    """
+    Substitute words in a string with replacements from substitutes dict.
+    """
+
+    pattern = re.compile('|'.join(substitutes.keys()))
     try:
-        result = pattern.sub(lambda x: d[x.group()], value)
+        result = pattern.sub(lambda x: substitutes[x.group()], value)
     except:
         result = value
     return result
